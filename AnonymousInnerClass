@@ -94,3 +94,100 @@ class Cellphone{
 interface Bell{
     void ring();
 }
+
+
+
+
+package com.innerclass;
+
+/*
+演示匿名内部类的使用1:基于接口（接口A） 2:基于类（Father类）
+ */
+public class AnonymousInnerClass {
+    public static void main(String[] args) {
+        Outer04 outer04 = new Outer04();
+        outer04.method();
+    }
+}
+class Outer04{
+    private int n1 = 10;//属性
+    public void method(){
+        // 基于接口的匿名内部类
+        /*
+        1.需求：想使用A接口，并创建对象   ====>  传统方式：写一个类，实现该接口，创建对象
+        2.Tiger类只想用一次，以后不想再使用
+        3.可以使用匿名内部类来简化
+        4.tiger的编译类型是A，运行类型是 匿名内部类Tiger ====> Outer04$1
+        我们看底层：系统会自己分配一个类，名字Outer04$1
+        class Tiger implements A{
+            @Override
+            public void cry() {
+                System.out.println("老虎叫唤~~~");
+            }
+        }
+         */
+        //jdk底层在创建了匿名内部类Outer04$1，立即创建了Outer04$1实例，并把地址返回给tiger
+        A tiger = new A(){
+            @Override
+            public void cry() {
+                System.out.println("老虎叫唤~~~");
+            }
+        };
+        //匿名内部类使用一次就不能使用了，就没有了,但是创建的对象tiger可以一直使用
+//        tiger.cry();
+//        System.out.println(tiger.getClass());// 看匿名内部类的名称
+        // 传统做法
+        //A tiger = new Tiger();
+        //tiger.cry();
+
+
+        // 基于类的匿名内部类
+        // 这里father的编译类型为Father
+        // 运行类型为  匿名内部类Outer04$2
+        /*
+             class Outer04$2 extends Father{
+             }
+         */
+        // 同时也返回了匿名内部类Outer04$2的对象 father
+        // 注意：("jack")参数列表会传递给构造器
+        Father father = new Father("jack"){
+            @Override
+            public void test() {
+                System.out.println("匿名内部类重写了test()....");
+            }
+        };
+        System.out.println("father对象的运行类型是："+father.getClass());// Outer04$2
+        father.test();
+
+        // 基于抽象类的匿名内部类
+        Animal dog = new Animal(){
+            @Override
+            void cry() {
+                System.out.println("小狗汪汪叫~~~");
+            }
+        };
+        dog.cry();
+    }
+}
+// 传统法
+//class Tiger implements A{
+//    @Override
+//    public void cry() {
+//        System.out.println("老虎叫唤~~~");
+//    }
+//}
+interface A{//接口
+    public void cry();
+}
+
+class Father{
+    public Father(String name){// 构造器
+        System.out.println("name = "+name);
+    }
+    public void test(){
+        System.out.println("test()......");
+    }
+}
+abstract class Animal{
+    abstract void cry();
+}
