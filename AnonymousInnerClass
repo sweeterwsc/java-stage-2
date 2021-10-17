@@ -45,20 +45,31 @@ class Person{
 
 
 
-public class AnonymousInnerClass_exercise01 {
+package com.innerclass;
+
+public class AnonymousInnerClass_exercise02 {
     public static void main(String[] args) {
-        f1(new AA(){
+        Cellphone cellphone = new Cellphone();
+        cellphone.alarmClock(new Bell() {
             @Override
-            public void show() {
-                System.out.println("这是一幅名画~~~");
+            public void ring() {
+                System.out.println("懒猪起床了~~~~");
+            }
+        });
+        cellphone.alarmClock(new Bell() {
+            @Override
+            public void ring() {
+                System.out.println("小伙伴们上课了~~~~");
             }
         });
     }
-    // 静态方法,形参是接口类型
-    public static void f1(AA aa){
-        aa.show();
+}
+
+class Cellphone{
+    public void alarmClock(Bell bell){// 形参是接口Bell类型
+        bell.ring();
     }
 }
-interface AA{
-    void show();
+interface Bell{
+    void ring();
 }
