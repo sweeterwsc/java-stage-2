@@ -1,0 +1,33 @@
+package com.innerclass;
+
+public class LocalInnerClass {
+    public static void main(String[] args) {
+        Outer02 outer02 = new Outer02();
+        outer02.hi();
+    }
+}
+// 演示局部内部类的使用
+class Outer02{
+    private int n1 = 100;
+    private void hello(){
+        System.out.println("hello().....");
+    }
+    public void hi(){
+        // 局部内部类是定义在外部类的局部位置，通常在方法中
+        // 不能添加修饰符但是可以用final修饰,用final修饰时，内部类不能被继承
+        // 作用域在该方法体内或者代码块内
+        final class Inner02{
+            // 局部内部类 可以访问外部类的所有成员，包括私有的
+            int n1 = 800;
+            public void f1(){
+                // 局部内部类可以直接访问外部类的成员
+                System.out.println("n1 = "+n1);// 就近原则
+                System.out.println(Outer02.this.n1);// 访问外部的n1
+                hello();
+            }
+        }
+        // class Inner03 extends Inner02{}
+        // 外部类在方法中，可以创建Inner02的对象，然后调用方法
+        new Inner02().f1();
+    }
+}
