@@ -41,3 +41,24 @@ class Person{
         System.out.println("Person ok() = "+str);
     }
 }
+
+
+
+
+public class AnonymousInnerClass_exercise01 {
+    public static void main(String[] args) {
+        f1(new AA(){
+            @Override
+            public void show() {
+                System.out.println("这是一幅名画~~~");
+            }
+        });
+    }
+    // 静态方法,形参是接口类型
+    public static void f1(AA aa){
+        aa.show();
+    }
+}
+interface AA{
+    void show();
+}
