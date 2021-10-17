@@ -1,0 +1,43 @@
+package com.innerclass;
+
+public class AnonymousInnerClass_details_01 {
+    public static void main(String[] args) {
+        Outer05 outer05 = new Outer05();
+        outer05.fi();
+    }
+}
+class Outer05{
+    private int n1 = 99;
+    public void fi(){
+        // 创建一个基于类的匿名内部类
+        Person student = new Person(){
+            @Override
+            public void hi() {
+                // 可以直接访问外部类的所有属性，包括私有的
+                System.out.println("Person hi()被重写了...");
+            }
+        };
+        student.hi();
+
+        // 也可以直接调用
+//        new Person(){
+//            @Override
+//            public void hi() {
+//                System.out.println("Person hi()又被重写了...哈哈哈哈");
+//            }
+//
+//            @Override
+//            public void ok(String str) {
+//                super.ok(str);
+//            }
+//        }.ok("jack");
+    }
+}
+class Person{
+    public void hi(){
+        System.out.println("Person hi()...");
+    }
+    public void ok(String str){
+        System.out.println("Person ok() = "+str);
+    }
+}
