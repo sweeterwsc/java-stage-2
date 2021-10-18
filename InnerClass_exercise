@@ -1,0 +1,19 @@
+package com.innerclass;
+
+public class InnerClass_exercise {// 外部类
+    public InnerClass_exercise(){// 构造器
+        Inner inner1 = new Inner();
+        inner1.a = 10;
+        Inner inner2 = new Inner();
+        System.out.println(inner2.a);// 5
+    }
+    class Inner{// 内部类
+        public int a = 5;
+    }
+    public static void main(String[] args) {
+        InnerClass_exercise test = new InnerClass_exercise();
+        Inner inner = test.new Inner();
+        System.out.println(inner.a);// 5
+    }
+
+}
